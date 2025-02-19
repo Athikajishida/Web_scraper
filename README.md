@@ -2,6 +2,7 @@
 
 ## Overview
 This is a full-stack web application that scrapes product details from an e-commerce webpage and displays them in a user-friendly interface. The backend is built with **Ruby on Rails**, and the frontend is developed using **React**.
+![Uploading image.png…]()
 
 ## Features
 - **Web Scraping**: Extracts product details (title, description, price, etc.) from e-commerce URLs.
