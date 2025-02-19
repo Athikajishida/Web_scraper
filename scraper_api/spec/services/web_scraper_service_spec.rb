@@ -1,3 +1,9 @@
+# @file spec/services/web_scraper_service_spec.rb
+# @description Tests for WebScraperService, ensuring correct extraction of product details from a webpage.
+# @version 1.0.0 - Initial tests for successful and fixed failed scraping scenarios, including new fields like `currency` and `image_url`.
+# @authors
+#  - Athika Jishida
+
 require 'rails_helper'
 
 RSpec.describe WebScraperService, type: :service do

@@ -1,6 +1,14 @@
+# @file spec/jobs/scrape_product_job_spec.rb
+# @description Tests for ScrapeProductJob, ensuring it correctly enqueues jobs, updates product records,
+#              and handles success & failure cases of scraping.
+# @version 1.0.0 - Initial test coverage for job execution and product updates.
+# @authors
+#  - Athika Jishida
+
+
 class ScrapeProductJob < ApplicationJob
   queue_as :default
-  
+ 
   def perform(product_id)
     @product = Product.find(product_id)
     @product.update(status: :processing, last_scraped_at: Time.current)

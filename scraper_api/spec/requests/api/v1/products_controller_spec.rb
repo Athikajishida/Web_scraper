@@ -1,3 +1,9 @@
+# @file spec/requests/api/products_controller_spec.rb
+# @description API request specs for product endpoints, ensuring data is returned correctly and includes new fields (currency, image_url).
+# @version 1.0.0 - Initial API tests covering show and index endpoints, including validation for additional fields in response data. Pagination and filtering added. 
+# @authors
+#  - Athika Jishida
+
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Products", type: :request do

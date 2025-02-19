@@ -1,16 +1,17 @@
-# Be sure to restart your server when you modify this file.
+# @file config/initializers/cors.rb
+# @description Configures CORS (Cross-Origin Resource Sharing) to allow requests from the frontend running on Vite (localhost:5173).
+# @version 1.0.0 - Initial implementation to support frontend-backend communication during development.
+# @dependencies Rack::Cors gem
+# @usage Placed in config/initializers to load during app initialization.
+# @notes Update 'origins' to match the deployed frontend URL in production.
+# @authors
+#  - Athika Jishida
 
-# Avoid CORS issues when API is called from the frontend app.
-# Handle Cross-Origin Resource Sharing (CORS) in order to accept cross-origin Ajax requests.
-
-# Read more: https://github.com/cyu/rack-cors
-
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins "example.com"
-#
-#     resource "*",
-#       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-#   end
-# end
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'http://localhost:5173' # Your Vite dev server URL
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
+end

@@ -1,4 +1,9 @@
-# spec/models/product_spec.rb
+# @file spec/models/product_spec.rb
+# @description Unit tests for the Product model, ensuring validations, state transitions, and scraping update logic work correctly.
+# @version 1.0.0 - Initial coverage for model validations and status transitions in scraping process. Added new fields tests (currency, image_url, additional_info). 
+# @authors
+#  - Athika Jishida 
+
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
