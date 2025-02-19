@@ -1,26 +1,55 @@
+/**
+ * @file Dashboard.jsx
+ * @description Main dashboard component for the Flipkart product scraper application
+ * @version 1.0.0
+ * @author Athika Jishida
+ */
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Search } from 'lucide-react';
 import { fetchProducts, scrapeProduct, setSearchQuery } from './features/productSlice';
 import _ from 'lodash';
 
+/**
+ * Dashboard Component
+ * Provides interface for scraping Flipkart products and displaying them in a grid
+ * Features include:
+ * - URL input for scraping new products
+ * - Search functionality with debouncing
+ * - Responsive product grid display
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered Dashboard component
+ */
 const Dashboard = () => {
     const dispatch = useDispatch();
+    // Redux state selectors
     const { items = [], status, error, searchQuery } = useSelector((state) => state.products);
+    // Local state management
     const [url, setUrl] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    // Initial data fetch
     useEffect(() => {
         if (status === 'idle') {
             dispatch(fetchProducts());
         }
     }, [status, dispatch]);
 
+    /**
+     * Validates if the input string is a valid URL
+     * @param {string} inputUrl - URL to validate
+     * @returns {boolean} True if URL is valid, false otherwise
+     */
     const validateUrl = (inputUrl) => {
         const urlPattern = /^(https?:\/\/)?([\w\-]+\.)+[\w]{2,}(\/.*)?$/;
         return urlPattern.test(inputUrl);
     };
-
+     /**
+     * Handles form submission for scraping new products
+     * @param {Event} e - Form submission event
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateUrl(url)) {
@@ -31,7 +60,10 @@ const Dashboard = () => {
         await dispatch(scrapeProduct(url));
         setUrl('');
     };
-
+    /**
+     * Debounced search function to prevent excessive API calls
+     * Waits 300ms after last keystroke before dispatching search
+     */
     const debouncedSearch = useCallback(
         _.debounce((value) => {
             dispatch(setSearchQuery(value));
@@ -39,11 +71,15 @@ const Dashboard = () => {
         }, 300),
         [dispatch]
     );
-
+    /**
+     * Handles search input changes
+     * @param {Event} e - Input change event
+     */
     const handleSearchChange = (e) => {
         debouncedSearch(e.target.value);
     };
-
+    
+    // Filter products based on search query
     const filteredProducts = Array.isArray(items) 
         ? items.filter((product) =>
             product?.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
